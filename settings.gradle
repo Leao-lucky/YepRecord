@@ -1,0 +1,58 @@
+pluginManagement {
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url "https://jitpack.io" }
+        //xbh-UI公共库相关依赖
+        maven {
+            credentials {
+                username 'LfjhdN'
+                password 'RW2Envku5E'
+            }
+            url 'https://repo.rdc.aliyun.com/repository/106559-release-OcU2hD/'
+        }
+        maven {
+            allowInsecureProtocol = true
+            credentials {
+                username 'mobile'
+                password 'mobile'
+            }
+            url uri('http://192.168.21.214:8082/repository/maven-releases/')
+        }
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url "https://jitpack.io" }
+        maven {
+            credentials {
+                username 'LfjhdN'
+                password 'RW2Envku5E'
+            }
+            url 'https://repo.rdc.aliyun.com/repository/106559-release-OcU2hD/'
+        }
+        maven {
+            allowInsecureProtocol = true
+            credentials {
+                username 'mobile'
+                password 'mobile'
+            }
+            url uri('http://192.168.21.214:8082/repository/maven-releases/')
+        }
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.name = "YepRecord"
+include ':demo'

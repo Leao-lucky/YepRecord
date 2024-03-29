@@ -1,0 +1,209 @@
+android {
+    defaultConfig {
+        versionCode gitVersionCode()
+        versionName gitVersionName()
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("${rootDir}/xbh.jks")
+            storePassword 'android'
+            keyAlias 'android'
+            keyPassword 'android'
+        }
+
+        debug {
+            storeFile file("${rootDir}/xbh.jks")
+            storePassword 'android'
+            keyAlias 'android'
+            keyPassword 'android'
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+            buildConfigField "String", "apkName", "\"${apkName()}\""
+            buildConfigField "String", "applicationId", "\"${rootProject.applicationId}\""
+            buildConfigField "String", "minSdkVersion", "\"${rootProject.minSdkVersion}\""
+            buildConfigField "String", "targetSdkVersion", "\"${rootProject.targetSdkVersion}\""
+            buildConfigField "String", "versionName", "\"${gitVersionName()}\""
+            buildConfigField "String", "codeVersion", "\"${getGitSha1()}\""
+            buildConfigField "String", "gitBranch", "\"${getGitBranch()}\""
+            buildConfigField "String", "buildTime", "\"${buildTime()}\""
+            buildConfigField "String", "buildType", "\"D\""
+        }
+
+        release {
+            signingConfig signingConfigs.release
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "apkName", "\"${apkName()}\""
+            buildConfigField "String", "applicationId", "\"${rootProject.applicationId}\""
+            buildConfigField "String", "minSdkVersion", "\"${rootProject.minSdkVersion}\""
+            buildConfigField "String", "targetSdkVersion", "\"${rootProject.targetSdkVersion}\""
+            buildConfigField "String", "versionName", "\"${gitVersionName()}\""
+            buildConfigField "String", "codeVersion", "\"${getGitSha1()}\""
+            buildConfigField "String", "gitBranch", "\"${getGitBranch()}\""
+            buildConfigField "String", "buildTime", "\"${buildTime()}\""
+            buildConfigField "String", "buildType", "\"R\""
+
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    if (output.baseName.contains("release")) {
+                        if (variant.productFlavors[0] == null) {
+                            outputFileName = "${apkName()}_xbh_${defaultConfig.versionName}_${getGitSha1()}.apk"
+                        } else {
+                            outputFileName = "${apkName()}_${variant.productFlavors[0].name}_${defaultConfig.versionName}_${getGitSha1()}.apk"
+                        }
+                        output.outputFileName = outputFileName
+                        variant.packageApplication.outputDirectory = new File("${getReleaseOutPath()}")
+                    }
+                }
+            }
+
+            //避免抛出output-metadata.json' which doesn't exist
+            tasks.whenTaskAdded { task ->
+                if (task.name.contains("ReleaseApkListingFileRedirect")) {
+                    task.enabled = false
+                }
+            }
+
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    def buildTypeName = variant.buildType.name
+                    print buildTypeName + ""
+                    if (buildTypeName.equals("release")) {
+
+                        def apkInfoFile = new File("${getReleaseOutPath()}", "apkInfo.properties")
+                        if (apkInfoFile.exists()) {
+                            apkInfoFile.delete()
+                        }
+
+                        def applicationId = "${defaultConfig.applicationId}"
+                        def minSdkVersion = "${defaultConfig.minSdkVersion.apiString}"
+                        def targetSdkVersion = "${defaultConfig.targetSdkVersion.apiString}"
+                        def versionCode = "${defaultConfig.versionCode}"
+                        def versionName = "${defaultConfig.versionName}"
+                        def gitPath = 'git remote -v'.execute([], project.rootDir).text.trim().replaceAll("\r|\n", "|")
+                        def gitBranch = "${getGitBranch()}"
+
+                        def apkVersion = versionName + "." + "${getGitSha1()}" + "." + "${buildTime()}" + "." + "R"
+
+                        def list = []
+                        list.add("# The file that records apk package information." + "\n")
+                        list.add("# DATE: " + "${releaseTime()}" + "\n")
+                        list.add("apkName=" + "${apkName()}" + "\n")
+                        list.add("applicationId=" + applicationId + "\n")
+                        list.add("minSdkVersion=" + minSdkVersion + "\n")
+                        list.add("targetSdkVersion=" + targetSdkVersion + "\n")
+                        list.add("versionCode=" + versionCode + "\n")
+                        list.add("versionName=" + versionName + "\n")
+                        list.add("sha-1=" + "${getGitSha1()}" + "\n")
+                        list.add("gitPath=" + gitPath + "\n")
+                        list.add("gitBranch=" + gitBranch + "\n")
+                        list.add("apkVersion=" + apkVersion)
+
+                        new File("${getReleaseOutPath()}", "apkInfo.properties").withWriter('UTF-8') { writer ->
+                            list.each {
+                                writer.write(it)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+def apkName() {
+    return rootProject.apkName
+}
+
+def static buildTime() {
+    return new Date().format("yyMMdd", TimeZone.getTimeZone("GMT+8"))
+}
+
+def static releaseTime() {
+    return new Date().format("yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone("GMT+8"))
+}
+
+def getDebugOutPath() {
+    def apkInfoRootPath = new File(rootProject.getRootDir().getAbsolutePath() + "/out/debug")
+    if (!apkInfoRootPath.exists()) {
+        apkInfoRootPath.mkdirs()
+    }
+    return apkInfoRootPath.getAbsolutePath()
+}
+
+def getReleaseOutPath() {
+    def apkInfoRootPath = new File(rootProject.getRootDir().getAbsolutePath() + "/out/release")
+    if (!apkInfoRootPath.exists()) {
+        apkInfoRootPath.mkdirs()
+    }
+    return apkInfoRootPath.getAbsolutePath()
+}
+
+def getGitSha1() {
+    def gitDir = new File("${new File("${rootDir}")}/.git")
+    System.out.print(gitDir.getPath() + "/n")
+    if (!gitDir.isDirectory()) {
+        return 'null'
+    }
+
+    def cmd = 'git log --pretty=format:%h -1'
+    def gitCommit = cmd.execute().text.trim()
+    assert !gitCommit.isEmpty()
+    gitCommit
+}
+
+static def gitVersionCode() {
+    def cmd = 'git rev-list HEAD --first-parent --count'
+    cmd = cmd.execute().text.trim()
+
+    if (cmd.isEmpty()) {
+        return 1
+    } else {
+        return cmd.toInteger()
+    }
+}
+
+/**
+ * 获取tag
+ *
+ * @return
+ */
+static def gitVersionName() {
+    // 如果当前提交已打tag，那么就会获取当前tag，否则会有相关的后缀来描述该tag之后有多少次提交以及最新的提交commit id
+    def cmd = 'git describe --tags'
+    def version = cmd.execute().text.trim()
+
+    def pattern = "-(\\d+)-g"
+    def matcher = version =~ pattern
+
+    if (matcher) {
+        version = version.substring(0, matcher.start()) + "." + matcher[0][1]
+    }
+    return version
+}
+
+/**
+ * 获取当前分支关联远程分支名
+ *
+ * @return
+ */
+static def getGitBranch() {
+    def cmd = 'git rev-parse --abbrev-ref @{u}'
+    def branchName = cmd.execute().text.trim()
+
+    if (branchName == null || branchName == "") {
+        branchName = "null"
+    } else {
+        branchName = branchName.split("/")[1]
+        if (branchName == null || branchName == "") {
+            branchName = "null"
+        }
+    }
+    return branchName
+}
