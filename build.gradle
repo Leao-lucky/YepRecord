@@ -11,8 +11,8 @@ task clean(type: Delete) {
 }
 
 ext {
-    apkName = "XbhBase"
-    applicationId = "com.xbh.base"
+    apkName = "YepRecord"
+    applicationId = "com.yep.record"
 
     //sdk
     //buildToolsVersion='30.0.2'
