@@ -16,7 +16,7 @@ ext {
 
     //sdk
     //buildToolsVersion='30.0.2'
-    compileSdkVersion = 33
-    targetSdkVersion = 33
-    minSdkVersion = 24
+    compileSdkVersion = 34
+    targetSdkVersion = 34
+    minSdkVersion = 26
 }
