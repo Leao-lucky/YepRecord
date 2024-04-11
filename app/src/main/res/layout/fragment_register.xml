@@ -20,6 +20,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cslMain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -28,19 +29,19 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/tvLogin"
+                android:id="@+id/tvEmailRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/login"
+                android:layout_marginTop="60dp"
+                android:text="@string/email_register"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/etUserName"
+                android:id="@+id/etEmail"
                 android:layout_width="276dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="19dp"
@@ -50,40 +51,76 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvLogin" />
+                app:layout_constraintTop_toBottomOf="@+id/tvEmailRegister" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cslVerify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etEmail">
+
+                <EditText
+                    android:id="@+id/etVerify"
+                    android:layout_width="276dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/shape_edittext_login"
+                    android:hint="@string/input_verify_word"
+                    android:paddingStart="14dp"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvSendVerify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="17dp"
+                    android:gravity="center"
+                    android:text="@string/send_verify"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <EditText
-                android:id="@+id/etVerify"
+                android:id="@+id/etPwd"
                 android:layout_width="276dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="19dp"
                 android:background="@drawable/shape_edittext_login"
-                android:hint="@string/input_verify_word"
+                android:hint="@string/input_pwd"
                 android:paddingStart="14dp"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etUserName" />
+                app:layout_constraintTop_toBottomOf="@+id/cslVerify" />
 
-            <TextView
-                android:id="@+id/tvSendVerify"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="17dp"
-                android:gravity="center"
-                android:text="@string/send_verify"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="@+id/etVerify"
-                app:layout_constraintTop_toBottomOf="@+id/etUserName" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <EditText
+                android:id="@+id/etPwd2"
                 android:layout_width="276dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginBottom="9dp"
+                android:background="@drawable/shape_edittext_login"
+                android:hint="@string/input_pwd2"
+                android:paddingStart="14dp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etVerify">
+                app:layout_constraintTop_toBottomOf="@+id/etPwd"
+                app:layout_constraintBottom_toTopOf="@+id/cslTips"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cslTips"
+                android:layout_width="276dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
 
                 <TextView
                     android:id="@+id/tvTips"
@@ -98,38 +135,28 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tvCheckMethod"
+                    android:id="@+id/tvLogin"
                     android:layout_width="wrap_content"
                     android:layout_height="16dp"
                     android:layout_marginEnd="9dp"
-                    android:text="@string/login_by_username"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/tvRegister"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvRegister"
-                    android:layout_width="wrap_content"
-                    android:layout_height="16dp"
-                    android:layout_marginEnd="17dp"
-                    android:text="@string/email_register"
+                    android:text="@string/login"
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <TextView
             android:id="@+id/btLogin"
             style="@style/style_dialog_btn"
-            android:layout_marginBottom="133dp"
-            android:text="@string/login"
+            android:layout_marginBottom="120dp"
+            android:text="@string/register"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

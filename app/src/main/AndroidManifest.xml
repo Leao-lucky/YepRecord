@@ -15,7 +15,7 @@
         tools:targetApi="s">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".AccountManageActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
