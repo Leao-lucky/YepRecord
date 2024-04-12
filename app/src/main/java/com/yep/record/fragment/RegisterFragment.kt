@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.yep.record.databinding.FragmentRegisterBinding
-import com.yep.record.viewmodel.ACManageViewModel
+import com.yep.record.viewmodel.AccountViewModel
 
 
 class RegisterFragment : Fragment() {
@@ -16,8 +16,8 @@ class RegisterFragment : Fragment() {
         FragmentRegisterBinding.inflate(layoutInflater)
     }
 
-    private val acManageViewModel: ACManageViewModel by lazy {
-        ViewModelProvider(requireActivity()).get(ACManageViewModel::class.java)
+    private val accountViewModel: AccountViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(AccountViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +41,7 @@ class RegisterFragment : Fragment() {
 
     private fun initListener() {
         vBinding.tvLogin.setOnClickListener {
-            acManageViewModel.isLoginFragment().value = true
+            accountViewModel.isLoginFragment().value = true
         }
     }
 

@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.yep.record.utils.Constant
 
-class ACManageViewModel : ViewModel() {
+class AccountViewModel : ViewModel() {
 
     private var loginType: MutableLiveData<Int> = MutableLiveData(Constant.LOGIN_WITH_EMAIL)
     private var isLoginFragment: MutableLiveData<Boolean> = MutableLiveData(true)

@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.yep.record.R
 import com.yep.record.databinding.FragmentLoginBinding
 import com.yep.record.utils.Constant
-import com.yep.record.viewmodel.ACManageViewModel
+import com.yep.record.viewmodel.AccountViewModel
 
 
 class LoginFragment : Fragment() {
@@ -19,8 +19,8 @@ class LoginFragment : Fragment() {
         FragmentLoginBinding.inflate(layoutInflater)
     }
 
-    private val acManageViewModel: ACManageViewModel by lazy {
-        ViewModelProvider(requireActivity()).get(ACManageViewModel::class.java)
+    private val accountViewModel: AccountViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(AccountViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -35,7 +35,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListener()
-        acManageViewModel.getLoginType().observe(viewLifecycleOwner) {
+        accountViewModel.getLoginType().observe(viewLifecycleOwner) {
             if (Constant.LOGIN_WITH_EMAIL == it) {
                 vBinding.etUserName.hint = resources.getString(R.string.input_email)
                 vBinding.etVerify.hint = resources.getString(R.string.input_verify_word)
@@ -51,8 +51,6 @@ class LoginFragment : Fragment() {
         }
     }
 
-
-
     private fun initData() {
         vBinding.tvTips.visibility = View.GONE
         vBinding.tvSendVerify.text = resources.getString(R.string.send_verify, "")
@@ -60,11 +58,11 @@ class LoginFragment : Fragment() {
 
     private fun initListener() {
         vBinding.tvCheckMethod.setOnClickListener {
-            acManageViewModel.setLoginType()
+            accountViewModel.setLoginType()
         }
 
         vBinding.tvRegister.setOnClickListener {
-            acManageViewModel.isLoginFragment().value = false
+            accountViewModel.isLoginFragment().value = false
         }
 
         vBinding.etUserName.doOnTextChanged { text, start, before, count ->
