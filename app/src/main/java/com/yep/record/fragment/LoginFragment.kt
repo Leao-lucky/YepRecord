@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.yep.record.R
 import com.yep.record.databinding.FragmentLoginBinding
+import com.yep.record.helper.FragmentUtil
 import com.yep.record.utils.Constant
 import com.yep.record.viewmodel.AccountViewModel
 
@@ -35,7 +36,7 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListener()
-        accountViewModel.getLoginType().observe(viewLifecycleOwner) {
+        accountViewModel.loginType.observe(viewLifecycleOwner) {
             if (Constant.LOGIN_WITH_EMAIL == it) {
                 vBinding.etUserName.hint = resources.getString(R.string.input_email)
                 vBinding.etVerify.hint = resources.getString(R.string.input_verify_word)
@@ -58,11 +59,15 @@ class LoginFragment : Fragment() {
 
     private fun initListener() {
         vBinding.tvCheckMethod.setOnClickListener {
-            accountViewModel.setLoginType()
+            accountViewModel.loginType.value = if (accountViewModel.loginType.value == Constant.LOGIN_WITH_EMAIL) {
+                Constant.LOGIN_WITH_USERNAME
+            } else {
+                Constant.LOGIN_WITH_EMAIL
+            }
         }
 
         vBinding.tvRegister.setOnClickListener {
-            accountViewModel.isLoginFragment().value = false
+            accountViewModel.loginFragment.value = FragmentUtil.REGISTERFRAGMENT
         }
 
         vBinding.etUserName.doOnTextChanged { text, start, before, count ->

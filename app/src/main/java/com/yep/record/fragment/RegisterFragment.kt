@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.yep.record.databinding.FragmentRegisterBinding
+import com.yep.record.helper.FragmentUtil
 import com.yep.record.viewmodel.AccountViewModel
 
 
@@ -41,7 +42,7 @@ class RegisterFragment : Fragment() {
 
     private fun initListener() {
         vBinding.tvLogin.setOnClickListener {
-            accountViewModel.isLoginFragment().value = true
+            accountViewModel.loginFragment.value = FragmentUtil.LOGINFRAGMENT
         }
     }
 
