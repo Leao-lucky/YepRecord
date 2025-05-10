@@ -12,7 +12,7 @@ class AccountRepository(private val service: ApiService) {
         var response:ResultResponse<UserInfo>
         try {
             response = service.loginByEmail(email, verify).await()
-            if (response.code == ExceptionEnum.SUCCESS.getResultCode()) {
+            if (response.code == ExceptionEnum.SUCCESS.resultCode) {
                 response.requstState = Constant.REQUEST_SUCCESS
             } else {
                 response.requstState = Constant.REQUEST_FAILED

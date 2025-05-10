@@ -1,12 +1,9 @@
 package com.yep.record.bean
 
-import com.yep.record.base.BaseInfoInterface
-
 enum class ExceptionEnum(
     val resultCode: String,
     val resultMsg: String
-) :
-    BaseInfoInterface {
+) {
     SUCCESS("200", "成功!"),
     BODY_NOT_MATCH("400", "请求的数据格式不符!"),
     SIGNATURE_NOT_MATCH("401", "请求的数字签名不匹配!"),
@@ -17,13 +14,5 @@ enum class ExceptionEnum(
     INTERNAL_SERVER_ERROR("500", "服务器内部错误!"),
     SERVER_BUSY("503", "服务器正忙，请稍后再试!"),
     EMAIL_SEND_ERROR("504", "邮件发送错误");
-
-    override fun getResultCode(): String? {
-        return resultCode
-    }
-
-    override fun getResultMsg(): String? {
-        return resultMsg
-    }
 
 }
