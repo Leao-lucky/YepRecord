@@ -1,0 +1,53 @@
+ext {
+    apkName = "Yep"
+    applicationId = "com.yep.record"
+
+    android = [
+            compileSdk: 34,
+            minSdk    : 28,
+            targetSdk : 34,
+    ]
+
+    def releaseDate = new Date().format("yyMMdd", TimeZone.getTimeZone("GMT+08:00"))
+    def releaseCode = releaseDate.toInteger()
+
+    //临时测试版本
+    def Test = "Test"
+    //全功能版本      ->开发阶段
+    def Alpha = "Alpha"
+    //Bug修复版本     ->内部测试阶段
+    def Beta = "Beta"
+    //预发布版本      ->集成测试阶段
+    def RC = "RC"
+    //交付版本        ->交付阶段
+    def RE = "RE"
+    //app YR_1.0.20260506(70Alpha).apk
+
+
+    app = [
+            //发布版本名（注意：由项目负责人修改，无需开发修改）
+            "versionName"   : "1.0",
+            //发布版本号（注意：由项目负责人修改，无需开发修改）
+            "versionCode"   : releaseCode,
+            //小版本迭代（注意：由项目负责人修改，无需开发修改）
+            "versionNum"    : releaseDate,
+            //发版的状态（注意：由分支状态产生-> develop:alpha  release:rc）
+            "versionRelease": Alpha
+    ]
+
+    // 统一依赖版本管理
+    versions = [
+            coreKtx          : '1.12.0',
+            appcompat        : '1.6.1',
+            material         : '1.11.0',
+            constraintlayout : '2.1.4',
+            recyclerview     : '1.3.2',
+            activityKtx      : '1.7.0',
+            fragmentKtx      : '1.5.6',
+            coroutines       : '1.6.4',
+            lifecycle        : '2.2.0',
+            retrofit         : '2.9.0',
+            okhttp           : '4.9.1',
+    ]
+
+}

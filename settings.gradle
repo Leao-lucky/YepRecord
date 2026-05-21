@@ -32,3 +32,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "YepRecord"
 include ':app'
+include ':library:router'
+include ':business:home'
+include ':common'

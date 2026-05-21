@@ -1,0 +1,52 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.yep.record.common'
+    compileSdk rootProject.ext.android.compileSdk
+
+    defaultConfig {
+        minSdk rootProject.ext.android.minSdk
+        targetSdk rootProject.ext.android.targetSdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+}
+
+dependencies {
+    api fileTree(dir: "libs", include: ["*.jar"])
+    api "androidx.core:core-ktx:${rootProject.ext.versions.coreKtx}"
+    api "androidx.appcompat:appcompat:${rootProject.ext.versions.appcompat}"
+    api "com.google.android.material:material:${rootProject.ext.versions.material}"
+    api "androidx.constraintlayout:constraintlayout:${rootProject.ext.versions.constraintlayout}"
+    api "androidx.recyclerview:recyclerview:${rootProject.ext.versions.recyclerview}"
+    api "androidx.activity:activity-ktx:${rootProject.ext.versions.activityKtx}"
+    api "androidx.fragment:fragment-ktx:${rootProject.ext.versions.fragmentKtx}"
+    //协程
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:${rootProject.ext.versions.coroutines}"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:${rootProject.ext.versions.coroutines}"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:${rootProject.ext.versions.lifecycle}"
+    //retrofit
+    api "com.squareup.retrofit2:retrofit:${rootProject.ext.versions.retrofit}"
+    api "com.squareup.retrofit2:converter-gson:${rootProject.ext.versions.retrofit}"
+    api "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
+    //OKHttp
+    api "com.squareup.okhttp3:okhttp:${rootProject.ext.versions.okhttp}"
+}

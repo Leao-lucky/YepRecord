@@ -24,9 +24,9 @@ android {
         debug {
             signingConfig signingConfigs.debug
             buildConfigField "String", "apkName", "\"${apkName()}\""
-            buildConfigField "String", "applicationId", "\"${rootProject.applicationId}\""
-            buildConfigField "String", "minSdkVersion", "\"${rootProject.minSdkVersion}\""
-            buildConfigField "String", "targetSdkVersion", "\"${rootProject.targetSdkVersion}\""
+            buildConfigField "String", "applicationId", "\"${rootProject.ext.applicationId}\""
+            buildConfigField "String", "minSdkVersion", "\"${rootProject.ext.android.minSdk}\""
+            buildConfigField "String", "targetSdkVersion", "\"${rootProject.ext.android.targetSdk}\""
             buildConfigField "String", "versionName", "\"${gitVersionName()}\""
             buildConfigField "String", "codeVersion", "\"${getGitSha1()}\""
             buildConfigField "String", "gitBranch", "\"${getGitBranch()}\""
@@ -40,9 +40,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "apkName", "\"${apkName()}\""
-            buildConfigField "String", "applicationId", "\"${rootProject.applicationId}\""
-            buildConfigField "String", "minSdkVersion", "\"${rootProject.minSdkVersion}\""
-            buildConfigField "String", "targetSdkVersion", "\"${rootProject.targetSdkVersion}\""
+            buildConfigField "String", "applicationId", "\"${rootProject.ext.applicationId}\""
+            buildConfigField "String", "minSdkVersion", "\"${rootProject.ext.android.minSdk}\""
+            buildConfigField "String", "targetSdkVersion", "\"${rootProject.ext.android.targetSdk}\""
             buildConfigField "String", "versionName", "\"${gitVersionName()}\""
             buildConfigField "String", "codeVersion", "\"${getGitSha1()}\""
             buildConfigField "String", "gitBranch", "\"${getGitBranch()}\""
@@ -53,9 +53,9 @@ android {
                 variant.outputs.all { output ->
                     if (output.baseName.contains("release")) {
                         if (variant.productFlavors[0] == null) {
-                            outputFileName = "${apkName()}_xbh_${defaultConfig.versionName}_${getGitSha1()}.apk"
+                            outputFileName = "${apkName()}_${defaultConfig.versionName}_${getGitSha1()}.apk"
                         } else {
-                            outputFileName = "${apkName()}_${variant.productFlavors[0].name}_${defaultConfig.versionName}_${getGitSha1()}.apk"
+                            outputFileName = "${apkName()}_${defaultConfig.versionName}_${variant.productFlavors[0].name}_${getGitSha1()}.apk"
                         }
                         output.outputFileName = outputFileName
                         variant.packageApplication.outputDirectory = new File("${getReleaseOutPath()}")
@@ -118,7 +118,7 @@ android {
 }
 
 def apkName() {
-    return rootProject.apkName
+    return rootProject.ext.apkName
 }
 
 def static buildTime() {

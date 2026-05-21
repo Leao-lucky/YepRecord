@@ -10,13 +10,4 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-ext {
-    apkName = "YepRecord"
-    applicationId = "com.yep.record"
-
-    //sdk
-    //buildToolsVersion='30.0.2'
-    compileSdkVersion = 34
-    targetSdkVersion = 34
-    minSdkVersion = 26
-}
+apply from: "config.gradle"
