@@ -1,0 +1,46 @@
+android {
+
+    defaultConfig {
+        //gradle3.0以上需要该标志位
+        flavorDimensions "default"
+    }
+
+
+    signingConfigs {
+        develop {
+            storeFile file("${rootDir}/yep.jks")
+            storePassword 'android'
+            keyAlias 'android'
+            keyPassword 'android'
+        }
+
+        spacex {
+            storeFile file("${rootDir}/yep.jks")
+            storePassword 'android'
+            keyAlias 'android'
+            keyPassword 'android'
+        }
+    }
+
+    productFlavors {
+        develop {
+            dimension "default"
+            signingConfig signingConfigs.develop
+            manifestPlaceholders = [
+                    app_name: "@string/app_name",// 应用名称
+                    app_icon: "@mipmap/logo",// 应用图标
+            ]
+        }
+
+        spacex {
+            dimension "default"
+            signingConfig signingConfigs.spacex
+            manifestPlaceholders = [
+                    app_name: "@string/app_name",// 应用名称
+                    app_icon: "@mipmap/logo",// 应用图标
+            ]
+        }
+
+    }
+
+}

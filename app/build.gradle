@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
 }
 apply from: 'apkInfo.gradle'
+apply from: rootProject.file("flavor.gradle")
 
 android {
     namespace rootProject.ext.applicationId
@@ -45,5 +46,6 @@ dependencies {
     implementation project(path: ':business:home')
     implementation project(path: ':library:router')
     implementation project(path: ':common')
+    implementation project(path: ':custom')
 
 }
