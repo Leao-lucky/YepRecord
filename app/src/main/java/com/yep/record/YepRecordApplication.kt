@@ -1,7 +1,10 @@
 package com.yep.record
 
 import android.app.Application
+import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.Logger
 import com.yep.record.helper.AppManager
+
 
 
 class YepRecordApplication : Application() {
@@ -11,6 +14,7 @@ class YepRecordApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         AppManager.register(this)
+        Logger.addLogAdapter(AndroidLogAdapter())
     }
 
 

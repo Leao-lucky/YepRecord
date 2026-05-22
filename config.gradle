@@ -3,9 +3,9 @@ ext {
     applicationId = "com.yep.record"
 
     android = [
-            compileSdk: 34,
+            compileSdk: 35,
             minSdk    : 28,
-            targetSdk : 34,
+            targetSdk : 35,
     ]
 
     def releaseDate = new Date().format("yyMMdd", TimeZone.getTimeZone("GMT+08:00"))
@@ -48,6 +48,7 @@ ext {
             lifecycle        : '2.2.0',
             retrofit         : '2.9.0',
             okhttp           : '4.9.1',
+            logger           : '2.2.0',
     ]
 
 }

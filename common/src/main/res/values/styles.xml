@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="style_dialog_btn">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -10,5 +11,12 @@
         <item name="android:textSize">14sp</item>
         <item name="android:paddingHorizontal">32dp</item>
         <item name="android:paddingVertical">10dp</item>
+    </style>
+
+    <style name="Theme.App.StartScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item> <!-- 背景色 -->
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/logo</item> <!-- 图标 -->
+        <item name="windowSplashScreenAnimationDuration">200</item>
+<!--        <item name="postSplashScreenTheme">@style/Theme.YourAppTheme</item> &lt;!&ndash; 你的主主题 &ndash;&gt;-->
     </style>
 </resources>

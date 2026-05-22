@@ -8,38 +8,9 @@ apply from: rootProject.file("flavor.gradle")
 
 android {
     namespace rootProject.ext.applicationId
-    compileSdk rootProject.ext.android.compileSdk
-
-    defaultConfig {
-        applicationId rootProject.ext.applicationId
-        minSdk rootProject.ext.android.minSdk
-        targetSdk rootProject.ext.android.targetSdk
-        versionCode rootProject.ext.app["versionCode"]
-        def version = rootProject.ext.app["versionName"] + "." + rootProject.ext.app["versionNum"] + "(" + rootProject.ext.app["versionRelease"] + ")"
-        versionName version
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
-    }
-
-    lintOptions {
-        checkReleaseBuilds false
-        abortOnError false
-        disable 'GoogleAppIndexingWarning'
-    }
-
-    kotlinOptions {
-        jvmTarget = '17'
-    }
-
-    buildFeatures {
-        dataBinding = true
-        viewBinding = true
-    }
 }
+
+apply from: rootProject.file("common.gradle")
 
 dependencies {
     //project
