@@ -8,14 +8,14 @@ android {
 
     signingConfigs {
         develop {
-            storeFile file("${rootDir}/yep.jks")
+            storeFile file("${rootDir}/plugin/yep.jks")
             storePassword 'android'
             keyAlias 'android'
             keyPassword 'android'
         }
 
         spacex {
-            storeFile file("${rootDir}/yep.jks")
+            storeFile file("${rootDir}/plugin/yep.jks")
             storePassword 'android'
             keyAlias 'android'
             keyPassword 'android'

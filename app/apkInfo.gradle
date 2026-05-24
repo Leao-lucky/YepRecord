@@ -4,25 +4,8 @@ android {
         versionName gitVersionName()
     }
 
-    signingConfigs {
-        release {
-            storeFile file("${rootDir}/yep.jks")
-            storePassword 'android'
-            keyAlias 'android'
-            keyPassword 'android'
-        }
-
-        debug {
-            storeFile file("${rootDir}/yep.jks")
-            storePassword 'android'
-            keyAlias 'android'
-            keyPassword 'android'
-        }
-    }
-
     buildTypes {
         debug {
-            signingConfig signingConfigs.debug
             buildConfigField "String", "apkName", "\"${apkName()}\""
             buildConfigField "String", "applicationId", "\"${rootProject.ext.applicationId}\""
             buildConfigField "String", "minSdkVersion", "\"${rootProject.ext.android.minSdk}\""
@@ -35,10 +18,8 @@ android {
         }
 
         release {
-            signingConfig signingConfigs.release
-
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "apkName", "\"${apkName()}\""
             buildConfigField "String", "applicationId", "\"${rootProject.ext.applicationId}\""
             buildConfigField "String", "minSdkVersion", "\"${rootProject.ext.android.minSdk}\""
