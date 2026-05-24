@@ -32,7 +32,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "YepRecord"
 include ':app'
-include ':library:router'
+include ':library'
 include ':business:home'
 include ':common'
 include ':custom'
